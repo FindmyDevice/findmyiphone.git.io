@@ -1,0 +1,67 @@
+<html>
+<head>
+    <script type="text/javascript" language="JavaScript" src="http://js.maxmind.com/js/geoip.js">
+    </script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false">
+    </script>
+</head>
+<body>
+        <script type="text/javascript">
+            var map;
+            function initialize() {
+                var options =
+    {
+        zoom: 13,
+        center: new google.maps.LatLng(geoip_latitude(), geoip_longitude()),
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: true,
+        mapTypeControlOptions:
+        {
+            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+            poistion: google.maps.ControlPosition.TOP_RIGHT,
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP,
+              google.maps.MapTypeId.TERRAIN,
+              google.maps.MapTypeId.HYBRID,
+              google.maps.MapTypeId.SATELLITE]
+        },
+        navigationControl: true,
+        navigationControlOptions:
+        {
+            style: google.maps.NavigationControlStyle.ZOOM_PAN
+        },
+        scaleControl: true,
+        disableDoubleClickZoom: true,
+        draggable: false,
+        streetViewControl: true,
+        draggableCursor: 'move'
+    };
+                map = new google.maps.Map(document.getElementById("map"), options);
+                // Add Marker and Listener
+                var latlng = new google.maps.LatLng(geoip_latitude(), geoip_longitude());
+                var image = 'rsz_dowira2.png';
+                var marker = new google.maps.Marker
+    (
+        {
+            position: latlng,
+            map: map,
+            icon: image,
+            title: 'Click me'
+        }
+    );
+                var infowindow = new google.maps.InfoWindow({
+                    content: 'You Are Here'
+                });
+                google.maps.event.addListener(marker, 'click', function () {
+                    // Calling the open method of the infoWindow 
+                    infowindow.open(map, marker);
+                        var bounds = map.getBounds();
+
+    var southWest = bounds.getSouthWest();
+    var northEast = bounds.getNorthEast();
+                });
+            }
+            window.onload = initialize;
+    </script>
+    <div id="map" style="height: 110%; width: 100%" />
+</body>
+</html>
